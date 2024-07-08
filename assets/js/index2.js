@@ -3,6 +3,7 @@ const addTaskButton= document.querySelector("#addTask")
 const taskName= document.querySelector("#taskName")
 
 
+
 const toDoList= [
     {
         id:1,
@@ -39,18 +40,16 @@ const renderTask = ()=> {
 
 renderTask()
 
-const addTask = () => {
-        const task = {
-            id: Date.now(),
-            task: taskName.value,
-            done: false
-        }
-        toDoList.push(task)
-        renderTask()
-        taskName.value = "";
-}
-
-addTaskButton.addEventListener("click", () => addTask)
+addTaskButton.addEventListener("click", ()=>{
+    const task = {
+        id: Date.now(),
+        task: taskName.value,
+        done: false
+    }
+    toDoList.push(task)
+    renderTask()
+    taskName.value = "";
+})
 
 const deleteTask = ()=> {
     const deletetask= document.querySelector("#delete")
