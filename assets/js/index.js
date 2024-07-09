@@ -2,6 +2,7 @@ const listContainer = document.querySelector("#listContainer")
 const addTaskButton = document.querySelector("#addTask")
 const taskName = document.querySelector("#taskName")
 
+
 let toDoList = [
     {
         id: 1,
@@ -40,6 +41,7 @@ const renderTask = () => {
             deleteTask(id)
         })
     })
+    totalTask()
 }
 
 const addTask = () => {
@@ -57,6 +59,13 @@ const deleteTask = (id) => {
     toDoList = toDoList.filter(task => task.id != id)
     renderTask()
 }
+
+const totalTask = () => {
+    const taskCount = document.querySelector("#taskCount")
+    let taskCounted = toDoList.length
+    taskCount.innerHTML="Total Tareas: " + taskCounted;
+}
+
 
 addTaskButton.addEventListener("click", addTask)
 renderTask()
