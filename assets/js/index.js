@@ -2,8 +2,7 @@ const listContainer = document.querySelector("#listContainer")
 const addTaskButton = document.querySelector("#addTask")
 const taskName = document.querySelector("#taskName")
 
-
-const toDoList = [
+let toDoList = [
     {
         id: 1,
         task: "Tarea 1",
@@ -27,41 +26,41 @@ const renderTask = () => {
         html += /*html*/`
             <li id="${task.id}">
                 <span>${task.task}</span>
-                    <input type="checkbox" class="toggle-done" ${task.done ? 'checked' : ''}>
-                   <span id="delete">&#x274c</span>
+                <input type="checkbox" class="toggle-done" ${task.done ? 'checked' : ''}>
+                <button class="deleteButton" data-id="${task.id}">&#x274c</button>
             </li>
         `
     })
     listContainer.innerHTML = html
+
+    const deleteButtons = document.querySelectorAll(".deleteButton")
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            const id = e.target.getAttribute("data-id")
+            deleteTask(id)
+        })
+    })
 }
 
-renderTask()
-
 const addTask = () => {
-    const task = {
+    const task1 = {
         id: Date.now(),
         task: taskName.value,
         done: false
     }
-    toDoList.push(task)
+    toDoList.push(task1)
     renderTask()
     taskName.value = ""
 }
 
+const deleteTask = (id) => {
+    toDoList = toDoList.filter(task => task.id != id)
+    renderTask()
+}
+
 addTaskButton.addEventListener("click", addTask)
+renderTask()
 
-
-const deletetasks = document.querySelectorAll("#delete")
-
-deletetasks.forEach(deletetask => {    
-    deletetask.addEventListener("click", () => {
-        let indice= deletetask.parentNode.id
-        console.log(indice)
-        toDoList.splice(indice-1,1)
-        console.log(toDoList)
-        renderTask()
-    });
-});
 
 
 
