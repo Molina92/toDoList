@@ -27,7 +27,7 @@ const renderTask = () => {
             <li id="${task.id}">
                 <span>${task.task}</span>
                 <input type="checkbox" class="done" data-id="${task.id}" ${task.done ? 'checked' : ''}>
-                <button class="deleteButton" data-id="${task.id}">&#x274c</button>
+                <span class="deleteButton" data-id="${task.id}">&#x274c</span>
             </li>
         `
     })
