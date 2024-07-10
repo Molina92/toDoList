@@ -2,7 +2,6 @@ const listContainer = document.querySelector("#listContainer")
 const addTaskButton = document.querySelector("#addTask")
 const taskName = document.querySelector("#taskName")
 
-
 let toDoList = [
     {
         id: 1,
@@ -27,7 +26,7 @@ const renderTask = () => {
         html += /*html*/`
             <li id="${task.id}">
                 <span>${task.task}</span>
-                <input type="checkbox" class="toggle-done" ${task.done ? 'checked' : ''}>
+                <input type="checkbox" class="done" data-id="${task.id}" ${task.done ? 'checked' : ''}>
                 <button class="deleteButton" data-id="${task.id}">&#x274c</button>
             </li>
         `
@@ -41,7 +40,21 @@ const renderTask = () => {
             deleteTask(id)
         })
     })
+
     totalTask()
+
+    const taskDone = document.querySelectorAll(".done")
+    taskDone.forEach(task => {
+        task.addEventListener("change", (e) => {
+            const id = e.target.getAttribute("data-id")
+            updateTask(id)
+        })
+    })
+
+
+    const completedCount = countCompletedTasks()
+    const completedCountElement = document.querySelector("#completedCount")
+    completedCountElement.innerHTML = "Tareas Completadas: " + completedCount
 }
 
 const addTask = () => {
@@ -63,12 +76,20 @@ const deleteTask = (id) => {
 const totalTask = () => {
     const taskCount = document.querySelector("#taskCount")
     let taskCounted = toDoList.length
-    taskCount.innerHTML="Total Tareas: " + taskCounted;
+    taskCount.innerHTML = "Total Tareas: " + taskCounted
 }
 
+const updateTask = (id) => {
+    const task = toDoList.find(task => task.id == id)
+    if (task) {
+        task.done = !task.done
+    }
+    renderTask()
+}
+
+const countCompletedTasks = () => {
+    return toDoList.filter(task => task.done).length
+}
 
 addTaskButton.addEventListener("click", addTask)
 renderTask()
-
-
-
