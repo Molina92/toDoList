@@ -51,7 +51,6 @@ const renderTask = () => {
         })
     })
 
-
     const completedCount = countCompletedTasks()
     const completedCountElement = document.querySelector("#completedCount")
     completedCountElement.innerHTML = "Tareas Completadas: " + completedCount
